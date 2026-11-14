@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Sign in{% endblock %}
+{% block public_content %}
+  <section class="auth-panel">
+    <a class="brand" href="{% url 'accounts:login' %}"><span class="brand-mark"><i class="bi bi-check2" aria-hidden="true"></i></span><span>daymark</span></a>
+    <h1>Welcome back</h1>
+    <p>Sign in to pick up where you left off.</p>
+    <form method="post">
+      {% csrf_token %}
+      {% include "includes/form_fields.html" with form=form %}
+      <input type="hidden" name="next" value="{{ next }}">
+      <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+    </form>
+    <p class="mb-0 mt-4 text-center small">New here? <a href="{% url 'accounts:register' %}">Create an account</a></p>
+  </section>
+{% endblock %}

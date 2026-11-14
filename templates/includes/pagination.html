@@ -1,0 +1,13 @@
+{% if page.has_other_pages %}
+  <nav class="d-flex justify-content-between align-items-center gap-3 px-3 py-3 border-top" aria-label="Pagination">
+    <span class="small text-secondary">Page {{ page.number }} of {{ page.paginator.num_pages }}</span>
+    <ul class="pagination pagination-sm">
+      {% if page.has_previous %}
+        <li class="page-item"><a class="page-link" href="?{% if search_query %}q={{ search_query|urlencode }}&amp;{% endif %}{% if selected_status %}status={{ selected_status|urlencode }}&amp;{% endif %}{% if selected_priority %}priority={{ selected_priority|urlencode }}&amp;{% endif %}page={{ page.previous_page_number }}" aria-label="Previous page"><i class="bi bi-chevron-left" aria-hidden="true"></i></a></li>
+      {% endif %}
+      {% if page.has_next %}
+        <li class="page-item"><a class="page-link" href="?{% if search_query %}q={{ search_query|urlencode }}&amp;{% endif %}{% if selected_status %}status={{ selected_status|urlencode }}&amp;{% endif %}{% if selected_priority %}priority={{ selected_priority|urlencode }}&amp;{% endif %}page={{ page.next_page_number }}" aria-label="Next page"><i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endif %}

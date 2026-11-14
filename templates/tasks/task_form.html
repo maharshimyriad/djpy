@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{% if task %}Edit task{% else %}New task{% endif %}{% endblock %}
+{% block page_title %}{{ project.name }}{% endblock %}
+{% block content %}
+  <div class="page-heading"><div><a class="small text-decoration-none" href="{% url 'projects:project_detail' project.pk %}"><i class="bi bi-arrow-left me-1" aria-hidden="true"></i>{{ project.name }}</a><h1 class="mt-2">{% if task %}Edit task{% else %}Add a task{% endif %}</h1><p class="page-subtitle">Keep the next step specific and easy to scan.</p></div></div>
+  <section class="content-panel" style="max-width: 760px;">
+    <form class="panel-body" method="post">
+      {% csrf_token %}
+      {% include "includes/form_fields.html" with form=form %}
+      <div class="d-flex gap-2 pt-2"><button class="btn btn-primary" type="submit">{% if task %}Save changes{% else %}Create task{% endif %}</button><a class="btn btn-outline-secondary" href="{% url 'projects:project_detail' project.pk %}">Cancel</a></div>
+    </form>
+  </section>
+{% endblock %}

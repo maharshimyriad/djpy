@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Delete project{% endblock %}
+{% block content %}
+  <div class="modal-backdrop show"></div>
+  <div class="modal fade show d-block confirm-modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="deleteProjectTitle">
+    <div class="modal-dialog modal-dialog-centered"><div class="modal-content border-0 shadow">
+      <div class="modal-header"><h1 class="modal-title fs-5" id="deleteProjectTitle">Delete “{{ project.name }}”?</h1></div>
+      <div class="modal-body"><p class="mb-0">This also permanently deletes the project's tasks. This action cannot be undone.</p></div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-secondary" href="{% url 'projects:project_detail' project.pk %}">Cancel</a>
+        <form method="post">{% csrf_token %}<button class="btn btn-danger" type="submit">Delete project</button></form>
+      </div>
+    </div></div>
+  </div>
+{% endblock %}

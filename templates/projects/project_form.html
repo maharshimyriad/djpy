@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{% if project %}Edit project{% else %}New project{% endif %}{% endblock %}
+{% block page_title %}Projects{% endblock %}
+{% block content %}
+  <div class="page-heading"><div><h1>{% if project %}Edit project{% else %}Create a project{% endif %}</h1><p class="page-subtitle">Give this workspace a clear name and a little context.</p></div></div>
+  <section class="content-panel" style="max-width: 760px;">
+    <form class="panel-body" method="post">
+      {% csrf_token %}
+      {% include "includes/form_fields.html" with form=form %}
+      <div class="d-flex gap-2 pt-2"><button class="btn btn-primary" type="submit">{% if project %}Save changes{% else %}Create project{% endif %}</button><a class="btn btn-outline-secondary" href="{% if project %}{% url 'projects:project_detail' project.pk %}{% else %}{% url 'projects:project_list' %}{% endif %}">Cancel</a></div>
+    </form>
+  </section>
+{% endblock %}

@@ -1,0 +1,27 @@
+<aside class="offcanvas-lg offcanvas-start app-sidebar" tabindex="-1" id="appSidebar" aria-labelledby="sidebarLabel">
+  <div class="offcanvas-header sidebar-heading">
+    <a class="brand" href="{% url 'projects:dashboard' %}" id="sidebarLabel">
+      <span class="brand-mark"><i class="bi bi-check2" aria-hidden="true"></i></span>
+      <span>daymark</span>
+    </a>
+    <button type="button" class="btn-close d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#appSidebar" aria-label="Close navigation"></button>
+  </div>
+  <div class="offcanvas-body sidebar-body">
+    <div class="sidebar-label">Workspace</div>
+    <nav class="nav flex-column sidebar-nav" aria-label="Main navigation">
+      <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'projects:dashboard' %}">
+        <i class="bi bi-grid-1x2" aria-hidden="true"></i><span>Overview</span>
+      </a>
+      <a class="nav-link {% if 'project' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'projects:project_list' %}">
+        <i class="bi bi-folder2-open" aria-hidden="true"></i><span>Projects</span>
+      </a>
+      <a class="nav-link {% if 'task' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'tasks:task_list' %}">
+        <i class="bi bi-check2-square" aria-hidden="true"></i><span>Tasks</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <span class="sidebar-label">Personal workspace</span>
+      <span class="sidebar-footnote"><i class="bi bi-shield-check me-2" aria-hidden="true"></i>Your projects are private</span>
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,10 @@
+{% if messages %}
+  <div class="message-stack" aria-live="polite" aria-atomic="true">
+    {% for message in messages %}
+      <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags|default:'info' }}{% endif %} alert-dismissible fade show" role="alert" data-auto-dismiss>
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Dismiss message"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

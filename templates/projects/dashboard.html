@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Overview{% endblock %}
+{% block page_title %}Overview{% endblock %}
+{% block content %}
+  <div class="page-heading">
+    <div>
+      <h1>Good to see you, {{ user.first_name|default:user.username }}</h1>
+      <p class="page-subtitle">Here is the latest from your workspace.</p>
+    </div>
+    <a class="btn btn-primary" href="{% url 'projects:project_create' %}"><i class="bi bi-plus-lg me-2" aria-hidden="true"></i>New project</a>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-xl-3"><div class="stat-card"><div class="stat-top"><span>Total projects</span><span class="stat-icon"><i class="bi bi-folder2-open" aria-hidden="true"></i></span></div><strong class="stat-value">{{ total_projects }}</strong></div></div>
+    <div class="col-6 col-xl-3"><div class="stat-card"><div class="stat-top"><span>Total tasks</span><span class="stat-icon"><i class="bi bi-list-check" aria-hidden="true"></i></span></div><strong class="stat-value">{{ total_tasks }}</strong></div></div>
+    <div class="col-6 col-xl-3"><div class="stat-card"><div class="stat-top"><span>Pending</span><span class="stat-icon text-warning"><i class="bi bi-hourglass-split" aria-hidden="true"></i></span></div><strong class="stat-value">{{ pending_tasks }}</strong></div></div>
+    <div class="col-6 col-xl-3"><div class="stat-card"><div class="stat-top"><span>Completed</span><span class="stat-icon"><i class="bi bi-check2-circle" aria-hidden="true"></i></span></div><strong class="stat-value">{{ completed_tasks }}</strong></div></div>
+  </div>
+
+  <section class="content-panel mb-4">
+    <div class="panel-heading"><h2>Recent tasks</h2><a class="small text-decoration-none" href="{% url 'tasks:task_list' %}">View all <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i></a></div>
+    {% if recent_tasks %}
+      {% include "includes/task_table.html" with tasks=recent_tasks %}
+    {% else %}
+      <div class="empty-state"><span class="empty-state-icon"><i class="bi bi-check2-square" aria-hidden="true"></i></span><h2>Nothing on your list yet</h2><p>Create a project first, then add a few tasks to see your work here.</p><a class="btn btn-primary btn-sm" href="{% url 'projects:project_create' %}">Create a project</a></div>
+    {% endif %}
+  </section>
+
+  <section>
+    <div class="panel-heading px-0 border-0"><h2>Recently updated projects</h2><a class="small text-decoration-none" href="{% url 'projects:project_list' %}">All projects <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i></a></div>
+    <div class="row g-3">
+      {% for project in recent_projects %}<div class="col-md-6 col-xl-4">{% include "includes/project_card.html" with project=project %}</div>
+      {% empty %}<div class="col-12"><div class="content-panel empty-state"><span class="empty-state-icon"><i class="bi bi-folder-plus" aria-hidden="true"></i></span><h2>Start with a project</h2><p>Keep related tasks together in a personal project.</p><a class="btn btn-primary btn-sm" href="{% url 'projects:project_create' %}">Create a project</a></div></div>{% endfor %}
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Projects{% endblock %}
+{% block page_title %}Projects{% endblock %}
+{% block content %}
+  <div class="page-heading">
+    <div><h1>Your projects</h1><p class="page-subtitle">Keep the work that belongs together in one place.</p></div>
+    <a class="btn btn-primary" href="{% url 'projects:project_create' %}"><i class="bi bi-plus-lg me-2" aria-hidden="true"></i>New project</a>
+  </div>
+  <form class="filter-bar content-panel mb-3" method="get">
+    <div class="filter-field"><label for="project-search">Search projects</label><input id="project-search" class="form-control" type="search" name="q" value="{{ search_query }}" placeholder="Name or description"></div>
+    <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1" aria-hidden="true"></i>Search</button>
+    {% if search_query %}<a class="btn btn-outline-secondary" href="{% url 'projects:project_list' %}">Clear</a>{% endif %}
+  </form>
+  <div class="row g-3">
+    {% for project in page.object_list %}<div class="col-md-6 col-xl-4">{% include "includes/project_card.html" with project=project %}</div>
+    {% empty %}
+      <div class="col-12"><div class="content-panel empty-state"><span class="empty-state-icon"><i class="bi bi-folder2-open" aria-hidden="true"></i></span><h2>{% if search_query %}No matching projects{% else %}No projects yet{% endif %}</h2><p>{% if search_query %}Try another name or description.{% else %}Create your first project to give your tasks a home.{% endif %}</p>{% if not search_query %}<a class="btn btn-primary" href="{% url 'projects:project_create' %}">Create a project</a>{% endif %}</div></div>
+    {% endfor %}
+  </div>
+  {% include "includes/pagination.html" with page=page search_query=search_query %}
+{% endblock %}
